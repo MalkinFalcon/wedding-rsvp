@@ -459,21 +459,14 @@
         document.getElementById(id).classList.add('active');
     }
 
-    let confettiInterval = null;
-
-    function stopAnimations() {
-        if (confettiInterval) { clearInterval(confettiInterval); confettiInterval = null; }
-        document.querySelectorAll('.confetti-piece').forEach(el => el.remove());
-    }
-
-    function spawnConfetti() {
+    function launchConfetti() {
         const colors = ['#C0152A','#e8d5a3','#2e7d32','#ff6f61','#ffd700','#ff69b4'];
-        for (let i = 0; i < 8; i++) {
+        for (let i = 0; i < 80; i++) {
             const el = document.createElement('div');
             el.className = 'confetti-piece';
             el.style.left = Math.random() * 100 + 'vw';
             el.style.background = colors[Math.floor(Math.random() * colors.length)];
-            el.style.animationDelay = Math.random() * 0.3 + 's';
+            el.style.animationDelay = Math.random() * 0.8 + 's';
             el.style.animationDuration = (2 + Math.random() * 1.5) + 's';
             el.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px';
             el.style.width = (6 + Math.random() * 8) + 'px';
@@ -481,16 +474,6 @@
             document.body.appendChild(el);
             el.addEventListener('animationend', () => el.remove());
         }
-    }
-
-    function launchConfetti() {
-        stopAnimations();
-        spawnConfetti(); spawnConfetti(); spawnConfetti();
-        confettiInterval = setInterval(spawnConfetti, 400);
-    }
-
-    function launchRain() {
-        stopAnimations();
     }
 
     function select(choice) {
