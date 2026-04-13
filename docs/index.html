@@ -137,6 +137,8 @@
             padding: 52px 48px;
             box-shadow: 0 10px 50px rgba(0,0,0,0.28);
             text-align: center;
+            position: relative;
+            overflow: hidden;
         }
 
         @media (max-width: 480px) {
@@ -260,6 +262,19 @@
         }
 
         body { transition: background-color 0.8s ease; }
+
+        /* ── Celebration GIF ── */
+        .celebration-gif {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            max-width: 160px;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.1s ease;
+            border-radius: 0 0 0 2px;
+        }
+        .celebration-gif.visible { opacity: 1; }
 
         .submit-btn {
             width: 100%;
@@ -418,6 +433,7 @@
             </div>
         </div>
 
+        <img class="celebration-gif" id="celebration-gif" src="images/img_6.gif" alt="">
     </div>
 
     <div class="double-happiness">囍</div>
@@ -459,6 +475,23 @@
         document.getElementById(id).classList.add('active');
     }
 
+    let gifPlaying = false;
+    let lastChoice = null;
+
+    function showCelebrationGif() {
+        if (gifPlaying) return;
+        gifPlaying = true;
+        const gif = document.getElementById('celebration-gif');
+        // Reset the gif so it plays from the start
+        gif.src = '';
+        gif.src = 'images/img_6.gif';
+        gif.classList.add('visible');
+        setTimeout(() => {
+            gif.classList.remove('visible');
+            setTimeout(() => { gifPlaying = false; }, 100);
+        }, 1500);
+    }
+
     function launchConfetti() {
         const colors = ['#C0152A','#e8d5a3','#2e7d32','#ff6f61','#ffd700','#ff69b4'];
         for (let i = 0; i < 80; i++) {
@@ -484,11 +517,12 @@
         if (choice === 'yes') {
             document.body.style.backgroundColor = '#C0152A';
             launchConfetti();
+            if (lastChoice !== 'yes') showCelebrationGif();
         }
         if (choice === 'no') {
-            launchRain();
             document.body.style.backgroundColor = '#3a3a3a';
         }
+        lastChoice = choice;
     }
 
     async function init() {
