@@ -370,8 +370,9 @@
         <p class="header-tagline">Гулять так гулять!</p>
         <h1 class="header-names">Susie <span class="header-plus">+</span> Dima</h1>
         <p class="header-date">18 · 07 · 2026</p>
-        <p class="header-subtitle">Celebration Party</p>
+        <p class="header-subtitle">Wedding Party</p>
         <p class="header-location">6:30 PM &nbsp;·&nbsp; Rasputin<br><span class="header-address">119 Wattletree Rd, Malvern VIC 3144</span></p>
+        <img src="images/img_8.gif" alt="" style="margin-top:16px;height:60px;width:auto;opacity:0.85;">
     </header>
 
     <div class="divider">
@@ -403,7 +404,7 @@
 
         <div id="state-form" class="state">
             <p class="card-greeting">Hi, <span id="guest-name"></span>!</p>
-            <p class="card-intro">We'd love to know if you can join us on our special day.<br>Please let us know below.</p>
+            <p class="card-intro">We'd love for you to come party to celebrate our marriage!</p>
 
             <div class="field-group">
                 <div class="field-label">Will you be joining us?</div>
@@ -442,7 +443,7 @@
     </div>
 
     <div class="double-happiness">囍</div>
-    <div style="position:fixed;bottom:4px;right:6px;font-size:10px;opacity:0.3;color:#fff;">v19</div>
+    <div style="position:fixed;bottom:4px;right:6px;font-size:10px;opacity:0.3;color:#fff;">v20</div>
 
     <footer class="footer">
         <p id="deadline-line"></p>
@@ -460,14 +461,15 @@
     // ───────────────────────────────────────────────────────────────────────────
 
     // ── Deadline countdown ─────────────────────────────────────────────────────
-    const DEADLINE = new Date('2026-04-30T23:59:59');
+    const DEADLINE = new Date('2026-04-30');
     const now = new Date();
-    const diffMs = DEADLINE - now;
+    const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    const deadlineDay = new Date(DEADLINE.getFullYear(), DEADLINE.getMonth(), DEADLINE.getDate());
+    const days = Math.round((deadlineDay - today) / (1000 * 60 * 60 * 24));
     const deadlineLine = document.getElementById('deadline-line');
-    if (diffMs <= 0) {
+    if (days <= 0) {
         deadlineLine.innerHTML = '<span class="late">⚠ You\'re late — please submit your RSVP ASAP!</span>';
     } else {
-        const days = Math.ceil(diffMs / (1000 * 60 * 60 * 24));
         deadlineLine.innerHTML = `Please RSVP by <strong>30th April</strong> — <strong>${days} day${days !== 1 ? 's' : ''} to go</strong>`;
     }
     // ───────────────────────────────────────────────────────────────────────────
