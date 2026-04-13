@@ -107,18 +107,6 @@
             opacity: 0.9;
         }
 
-        .header-gif {
-            height: 60px;
-            width: auto;
-            opacity: 0.85;
-        }
-        .header-gif-mobile { display: none; margin: 4px 0; }
-        .header-gif-desktop { display: inline; margin-top: 16px; }
-        @media (max-width: 600px) {
-            .header-gif-mobile { display: inline; }
-            .header-gif-desktop { display: none; }
-        }
-
         .header-address {
             font-size: 0.8rem;
             font-weight: 300;
@@ -216,6 +204,7 @@
         }
 
         .attend-btn .btn-icon { font-size: 2rem; display: block; margin-bottom: 8px; }
+        .btn-icon-img { height: 40px; width: auto; display: block; margin: 0 auto 8px; }
         .attend-btn .btn-label {
             font-family: 'Playfair Display', serif;
             font-size: 1.15rem;
@@ -395,11 +384,9 @@
     <header class="header">
         <p class="header-tagline">Гулять так гулять!</p>
         <h1 class="header-names">Susie <span class="header-plus">+</span> Dima</h1>
-        <img class="header-gif header-gif-mobile" src="images/img_8.gif" alt="">
         <p class="header-date">18 · 07 · 2026</p>
         <p class="header-subtitle">Wedding Party</p>
         <p class="header-location">6:30 PM &nbsp;·&nbsp; Rasputin<br><span class="header-address">119 Wattletree Rd, Malvern VIC 3144</span></p>
-        <img class="header-gif header-gif-desktop" src="images/img_8.gif" alt="">
     </header>
 
     <div class="divider">
@@ -437,7 +424,7 @@
                 <div class="field-label">Will you be joining us?</div>
                 <div class="attend-options">
                     <button class="attend-btn" id="btn-yes" onclick="select('yes')">
-                        <span class="btn-icon">🥂</span>
+                        <img class="btn-icon-img" src="images/img_8.gif" alt="">
                         <span class="btn-label">Yes! Да! 是的!</span>
                         <span class="btn-sub">Wouldn't miss it</span>
                     </button>
@@ -470,7 +457,7 @@
     </div>
 
     <div class="double-happiness">囍<img class="sad-gif" id="sad-gif" src="images/img_9.gif" alt=""></div>
-    <div style="position:fixed;bottom:4px;right:6px;font-size:10px;opacity:0.3;color:#fff;">v22</div>
+    <div style="position:fixed;bottom:4px;right:6px;font-size:10px;opacity:0.3;color:#fff;">v23</div>
 
     <footer class="footer">
         <p id="deadline-line"></p>
