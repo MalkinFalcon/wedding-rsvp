@@ -348,7 +348,21 @@
             margin-bottom: 16px;
             text-shadow: 0 3px 12px rgba(0,0,0,0.35);
             line-height: 1;
+            position: relative;
         }
+        .sad-gif {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            height: 90px;
+            width: auto;
+            border-radius: 6px;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.1s ease;
+        }
+        .sad-gif.visible { opacity: 1; }
     </style>
 </head>
 <body>
@@ -442,8 +456,8 @@
         <img class="celebration-gif celebration-right" id="celebration-gif-right" src="images/img_7.png" alt="">
     </div>
 
-    <div class="double-happiness">囍</div>
-    <div style="position:fixed;bottom:4px;right:6px;font-size:10px;opacity:0.3;color:#fff;">v20</div>
+    <div class="double-happiness">囍<img class="sad-gif" id="sad-gif" src="images/img_9.gif" alt=""></div>
+    <div style="position:fixed;bottom:4px;right:6px;font-size:10px;opacity:0.3;color:#fff;">v21</div>
 
     <footer class="footer">
         <p id="deadline-line"></p>
@@ -484,6 +498,7 @@
     }
 
     let gifPlaying = false;
+    let sadGifPlaying = false;
     let lastChoice = null;
 
     function showCelebrationGif() {
@@ -500,6 +515,19 @@
             left.classList.remove('visible');
             right.classList.remove('visible');
             setTimeout(() => { gifPlaying = false; }, 100);
+        }, 2000);
+    }
+
+    function showSadGif() {
+        if (sadGifPlaying) return;
+        sadGifPlaying = true;
+        const gif = document.getElementById('sad-gif');
+        gif.src = '';
+        gif.src = 'images/img_9.gif';
+        gif.classList.add('visible');
+        setTimeout(() => {
+            gif.classList.remove('visible');
+            setTimeout(() => { sadGifPlaying = false; }, 100);
         }, 2000);
     }
 
@@ -534,6 +562,7 @@
         }
         if (choice === 'no') {
             document.body.style.backgroundColor = '#3a3a3a';
+            if (lastChoice !== 'no') showSadGif();
             document.querySelector('.field-label:last-of-type').textContent = 'LEAVE US A MESSAGE';
             document.getElementById('dietary').placeholder = "We'll miss you! Feel free to leave us a note.";
         }
