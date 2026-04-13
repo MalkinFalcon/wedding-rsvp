@@ -107,6 +107,18 @@
             opacity: 0.9;
         }
 
+        .header-gif {
+            height: 60px;
+            width: auto;
+            opacity: 0.85;
+        }
+        .header-gif-mobile { display: none; margin: 4px 0; }
+        .header-gif-desktop { display: inline; margin-top: 16px; }
+        @media (max-width: 600px) {
+            .header-gif-mobile { display: inline; }
+            .header-gif-desktop { display: none; }
+        }
+
         .header-address {
             font-size: 0.8rem;
             font-weight: 300;
@@ -383,10 +395,11 @@
     <header class="header">
         <p class="header-tagline">Гулять так гулять!</p>
         <h1 class="header-names">Susie <span class="header-plus">+</span> Dima</h1>
+        <img class="header-gif header-gif-mobile" src="images/img_8.gif" alt="">
         <p class="header-date">18 · 07 · 2026</p>
         <p class="header-subtitle">Wedding Party</p>
         <p class="header-location">6:30 PM &nbsp;·&nbsp; Rasputin<br><span class="header-address">119 Wattletree Rd, Malvern VIC 3144</span></p>
-        <img src="images/img_8.gif" alt="" style="margin-top:16px;height:60px;width:auto;opacity:0.85;">
+        <img class="header-gif header-gif-desktop" src="images/img_8.gif" alt="">
     </header>
 
     <div class="divider">
@@ -457,7 +470,7 @@
     </div>
 
     <div class="double-happiness">囍<img class="sad-gif" id="sad-gif" src="images/img_9.gif" alt=""></div>
-    <div style="position:fixed;bottom:4px;right:6px;font-size:10px;opacity:0.3;color:#fff;">v21</div>
+    <div style="position:fixed;bottom:4px;right:6px;font-size:10px;opacity:0.3;color:#fff;">v22</div>
 
     <footer class="footer">
         <p id="deadline-line"></p>
