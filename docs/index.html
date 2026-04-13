@@ -457,7 +457,7 @@
     </div>
 
     <div class="double-happiness">囍<img class="sad-gif" id="sad-gif" src="images/img_9.gif" alt=""></div>
-    <div style="position:fixed;bottom:4px;right:6px;font-size:10px;opacity:0.3;color:#fff;">v23</div>
+    <div style="position:fixed;bottom:4px;right:6px;font-size:10px;opacity:0.3;color:#fff;">v24</div>
 
     <footer class="footer">
         <p id="deadline-line"></p>
@@ -496,6 +496,10 @@
             .forEach(s => document.getElementById(s).classList.remove('active'));
         document.getElementById(id).classList.add('active');
     }
+
+    const music = new Audio('images/audio_1.mp3');
+    music.loop = true;
+    music.volume = 0.7;
 
     let gifPlaying = false;
     let sadGifPlaying = false;
@@ -557,11 +561,13 @@
             document.body.style.backgroundColor = '#C0152A';
             launchConfetti();
             if (lastChoice !== 'yes') showCelebrationGif();
+            music.play().catch(() => {});
             document.querySelector('.field-label:last-of-type').textContent = 'DIETARY REQUIREMENTS / COMMENTS / OTHER';
             document.getElementById('dietary').placeholder = 'Allergies, dietary needs, or anything else we should know. Leave blank if none.';
         }
         if (choice === 'no') {
             document.body.style.backgroundColor = '#3a3a3a';
+            music.pause();
             if (lastChoice !== 'no') showSadGif();
             document.querySelector('.field-label:last-of-type').textContent = 'LEAVE US A MESSAGE';
             document.getElementById('dietary').placeholder = "We'll miss you! Feel free to leave us a note.";
