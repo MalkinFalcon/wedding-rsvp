@@ -438,7 +438,7 @@
     </div>
 
     <div class="double-happiness">囍</div>
-    <div style="position:fixed;bottom:4px;right:6px;font-size:10px;opacity:0.3;color:#fff;">v15</div>
+    <div style="position:fixed;bottom:4px;right:6px;font-size:10px;opacity:0.3;color:#fff;">v16</div>
 
     <footer class="footer">
         <p id="deadline-line"></p>
@@ -523,9 +523,13 @@
             document.body.style.backgroundColor = '#C0152A';
             launchConfetti();
             if (lastChoice !== 'yes') showCelebrationGif();
+            document.querySelector('.field-label:last-of-type').textContent = 'DIETARY REQUIREMENTS / COMMENTS / OTHER';
+            document.getElementById('dietary').placeholder = 'Allergies, dietary needs, or anything else we should know. Leave blank if none.';
         }
         if (choice === 'no') {
             document.body.style.backgroundColor = '#3a3a3a';
+            document.querySelector('.field-label:last-of-type').textContent = 'LEAVE US A MESSAGE';
+            document.getElementById('dietary').placeholder = "We'll miss you! Feel free to leave us a note.";
         }
         lastChoice = choice;
         if (window.innerWidth <= 600) {
