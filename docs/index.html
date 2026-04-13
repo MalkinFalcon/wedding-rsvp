@@ -259,22 +259,7 @@
             100% { transform: translateY(100vh) rotate(720deg) scale(0.3); opacity: 0; }
         }
 
-        /* ── Rain ── */
-        .rain-drop {
-            position: fixed;
-            width: 2px;
-            height: 18px;
-            background: linear-gradient(transparent, rgba(100,150,200,0.6));
-            top: -20px;
-            z-index: 9999;
-            pointer-events: none;
-            border-radius: 0 0 2px 2px;
-            animation: rain-fall 1.5s linear forwards;
-        }
-        @keyframes rain-fall {
-            0%   { transform: translateY(0); opacity: 0.7; }
-            100% { transform: translateY(110vh); opacity: 0; }
-        }
+        body { transition: background-color 0.8s ease; }
 
         .submit-btn {
             width: 100%;
@@ -475,12 +460,10 @@
     }
 
     let confettiInterval = null;
-    let rainInterval = null;
 
     function stopAnimations() {
         if (confettiInterval) { clearInterval(confettiInterval); confettiInterval = null; }
-        if (rainInterval) { clearInterval(rainInterval); rainInterval = null; }
-        document.querySelectorAll('.confetti-piece, .rain-drop').forEach(el => el.remove());
+        document.querySelectorAll('.confetti-piece').forEach(el => el.remove());
     }
 
     function spawnConfetti() {
@@ -506,23 +489,8 @@
         confettiInterval = setInterval(spawnConfetti, 400);
     }
 
-    function spawnRain() {
-        for (let i = 0; i < 6; i++) {
-            const el = document.createElement('div');
-            el.className = 'rain-drop';
-            el.style.left = Math.random() * 100 + 'vw';
-            el.style.animationDelay = Math.random() * 0.4 + 's';
-            el.style.animationDuration = (1 + Math.random() * 1) + 's';
-            el.style.height = (12 + Math.random() * 14) + 'px';
-            document.body.appendChild(el);
-            el.addEventListener('animationend', () => el.remove());
-        }
-    }
-
     function launchRain() {
         stopAnimations();
-        spawnRain(); spawnRain(); spawnRain();
-        rainInterval = setInterval(spawnRain, 300);
     }
 
     function select(choice) {
@@ -530,8 +498,14 @@
         document.getElementById('btn-yes').className = 'attend-btn' + (choice === 'yes' ? ' selected-yes' : '');
         document.getElementById('btn-no').className  = 'attend-btn' + (choice === 'no'  ? ' selected-no'  : '');
         document.getElementById('submit-btn').disabled = false;
-        if (choice === 'yes') launchConfetti();
-        if (choice === 'no') launchRain();
+        if (choice === 'yes') {
+            document.body.style.backgroundColor = '#C0152A';
+            launchConfetti();
+        }
+        if (choice === 'no') {
+            launchRain();
+            document.body.style.backgroundColor = '#3a3a3a';
+        }
     }
 
     async function init() {
