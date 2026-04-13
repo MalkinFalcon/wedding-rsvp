@@ -267,14 +267,14 @@
         .celebration-gif {
             position: absolute;
             bottom: 0;
-            left: 0;
             max-width: 160px;
             opacity: 0;
             pointer-events: none;
             transition: opacity 0.1s ease;
-            border-radius: 0 0 0 2px;
         }
         .celebration-gif.visible { opacity: 1; }
+        .celebration-left { left: 0; border-radius: 0 0 0 2px; }
+        .celebration-right { right: 0; border-radius: 0 0 2px 0; }
 
         .submit-btn {
             width: 100%;
@@ -433,11 +433,12 @@
             </div>
         </div>
 
-        <img class="celebration-gif" id="celebration-gif" src="images/img_6.gif" alt="">
+        <img class="celebration-gif celebration-left" id="celebration-gif-left" src="images/img_6.gif" alt="">
+        <img class="celebration-gif celebration-right" id="celebration-gif-right" src="images/img_7.png" alt="">
     </div>
 
     <div class="double-happiness">囍</div>
-    <div style="position:fixed;bottom:4px;right:6px;font-size:10px;opacity:0.3;color:#fff;">v14</div>
+    <div style="position:fixed;bottom:4px;right:6px;font-size:10px;opacity:0.3;color:#fff;">v15</div>
 
     <footer class="footer">
         <p id="deadline-line"></p>
@@ -482,13 +483,16 @@
     function showCelebrationGif() {
         if (gifPlaying) return;
         gifPlaying = true;
-        const gif = document.getElementById('celebration-gif');
+        const left = document.getElementById('celebration-gif-left');
+        const right = document.getElementById('celebration-gif-right');
         // Reset the gif so it plays from the start
-        gif.src = '';
-        gif.src = 'images/img_6.gif';
-        gif.classList.add('visible');
+        left.src = '';
+        left.src = 'images/img_6.gif';
+        left.classList.add('visible');
+        right.classList.add('visible');
         setTimeout(() => {
-            gif.classList.remove('visible');
+            left.classList.remove('visible');
+            right.classList.remove('visible');
             setTimeout(() => { gifPlaying = false; }, 100);
         }, 2000);
     }
