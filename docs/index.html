@@ -474,14 +474,23 @@
         document.getElementById(id).classList.add('active');
     }
 
-    function launchConfetti() {
+    let confettiInterval = null;
+    let rainInterval = null;
+
+    function stopAnimations() {
+        if (confettiInterval) { clearInterval(confettiInterval); confettiInterval = null; }
+        if (rainInterval) { clearInterval(rainInterval); rainInterval = null; }
+        document.querySelectorAll('.confetti-piece, .rain-drop').forEach(el => el.remove());
+    }
+
+    function spawnConfetti() {
         const colors = ['#C0152A','#e8d5a3','#2e7d32','#ff6f61','#ffd700','#ff69b4'];
-        for (let i = 0; i < 80; i++) {
+        for (let i = 0; i < 8; i++) {
             const el = document.createElement('div');
             el.className = 'confetti-piece';
             el.style.left = Math.random() * 100 + 'vw';
             el.style.background = colors[Math.floor(Math.random() * colors.length)];
-            el.style.animationDelay = Math.random() * 0.8 + 's';
+            el.style.animationDelay = Math.random() * 0.3 + 's';
             el.style.animationDuration = (2 + Math.random() * 1.5) + 's';
             el.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px';
             el.style.width = (6 + Math.random() * 8) + 'px';
@@ -491,17 +500,29 @@
         }
     }
 
-    function launchRain() {
-        for (let i = 0; i < 60; i++) {
+    function launchConfetti() {
+        stopAnimations();
+        spawnConfetti(); spawnConfetti(); spawnConfetti();
+        confettiInterval = setInterval(spawnConfetti, 400);
+    }
+
+    function spawnRain() {
+        for (let i = 0; i < 6; i++) {
             const el = document.createElement('div');
             el.className = 'rain-drop';
             el.style.left = Math.random() * 100 + 'vw';
-            el.style.animationDelay = Math.random() * 1.2 + 's';
+            el.style.animationDelay = Math.random() * 0.4 + 's';
             el.style.animationDuration = (1 + Math.random() * 1) + 's';
             el.style.height = (12 + Math.random() * 14) + 'px';
             document.body.appendChild(el);
             el.addEventListener('animationend', () => el.remove());
         }
+    }
+
+    function launchRain() {
+        stopAnimations();
+        spawnRain(); spawnRain(); spawnRain();
+        rainInterval = setInterval(spawnRain, 300);
     }
 
     function select(choice) {
