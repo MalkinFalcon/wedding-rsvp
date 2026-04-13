@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Susie + Dima — RSVP</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            background-color: #C0152A;
+            min-height: 100vh;
+            font-family: 'Lato', sans-serif;
+            color: #fff;
+        }
+
+        /* ── Top banner images ── */
+        .top-banner {
+            display: none;
+            justify-content: space-around;
+            align-items: center;
+            padding: 12px 2%;
+            pointer-events: none;
+        }
+        .top-banner img {
+            height: 58px;
+            width: auto;
+            opacity: 0.82;
+            border-radius: 8px;
+            object-fit: contain;
+        }
+        @media (max-width: 600px) {
+            .top-banner { display: flex; }
+        }
+
+        /* ── Bouncing img_5 ── */
+        .bouncer5 {
+            position: fixed;
+            width: 300px;
+            opacity: 0.22;
+            z-index: -1;
+            pointer-events: none;
+            border-radius: 10px;
+            will-change: transform;
+        }
+        @media (max-width: 600px) {
+            .bouncer5 { width: 100px; }
+        }
+
+        .page {
+            max-width: 560px;
+            margin: 0 auto;
+            padding: 12px 20px 32px;
+        }
+
+        /* ── Header ── */
+        .header {
+            text-align: center;
+            padding-bottom: 44px;
+        }
+
+        .header-tagline {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: 1.38rem;
+            opacity: 0.8;
+            margin-bottom: 18px;
+            letter-spacing: 0.02em;
+        }
+
+        .header-names {
+            font-family: 'Playfair Display', serif;
+            font-weight: 900;
+            font-size: 4.2rem;
+            letter-spacing: 0.06em;
+            line-height: 1;
+            text-transform: uppercase;
+            margin-bottom: 18px;
+        }
+
+        .header-plus { opacity: 0.55; }
+
+        .header-date {
+            font-weight: 300;
+            font-size: 1.25rem;
+            letter-spacing: 0.28em;
+            text-transform: uppercase;
+            opacity: 0.88;
+            margin: 0;
+        }
+
+        .header-subtitle {
+            font-weight: 300;
+            font-size: 0.8rem;
+            letter-spacing: 0.35em;
+            text-transform: uppercase;
+            opacity: 0.6;
+        }
+
+        .header-location {
+            margin-top: 10px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            letter-spacing: 0.04em;
+            line-height: 1.5;
+            opacity: 0.9;
+        }
+
+        .header-address {
+            font-size: 0.8rem;
+            font-weight: 300;
+            opacity: 0.75;
+            letter-spacing: 0.03em;
+        }
+
+        /* ── Divider ── */
+        .divider {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: -1px;
+        }
+        .divider-line { flex: 1; height: 1px; background: rgba(255,255,255,0.35); }
+        .divider-diamond {
+            width: 7px; height: 7px;
+            background: white;
+            transform: rotate(45deg);
+            opacity: 0.5;
+        }
+
+        /* ── Card ── */
+        .card {
+            background: #fff;
+            color: #1a1a1a;
+            border-radius: 2px;
+            padding: 52px 48px;
+            box-shadow: 0 10px 50px rgba(0,0,0,0.28);
+        }
+
+        @media (max-width: 480px) {
+            .header-names { font-size: 3rem; }
+            .card { padding: 38px 28px; }
+        }
+
+        /* ── Card states ── */
+        .state { display: none; }
+        .state.active { display: block; }
+
+        .loading {
+            text-align: center;
+            padding: 40px 0;
+            color: #aaa;
+            font-size: 0.85rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+        }
+
+        /* ── Form ── */
+        .card-greeting {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: #C0152A;
+            margin-bottom: 10px;
+        }
+
+        .card-intro {
+            font-size: 1.1rem;
+            color: #666;
+            margin-bottom: 40px;
+            font-weight: 300;
+            line-height: 1.7;
+        }
+
+        .field-label {
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: #999;
+            margin-bottom: 12px;
+        }
+
+        .field-group { margin-bottom: 32px; }
+
+        .attend-options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .attend-btn {
+            padding: 22px 12px;
+            border: 2px solid #e8e8e8;
+            border-radius: 2px;
+            background: #fff;
+            cursor: pointer;
+            text-align: center;
+            transition: border-color 0.15s, background 0.15s;
+        }
+
+        .attend-btn .btn-icon { font-size: 2rem; display: block; margin-bottom: 8px; }
+        .attend-btn .btn-label {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.15rem;
+            font-weight: 700;
+            display: block;
+            color: #333;
+            margin-bottom: 4px;
+        }
+        .attend-btn .btn-sub {
+            font-size: 0.75rem;
+            color: #bbb;
+            font-weight: 300;
+            display: block;
+        }
+
+        .attend-btn:hover { border-color: #C0152A; }
+
+        .attend-btn.selected-yes { border-color: #C0152A; background: #fff5f6; }
+        .attend-btn.selected-yes .btn-label { color: #C0152A; }
+        .attend-btn.selected-yes .btn-sub { color: #C0152A; opacity: 0.6; }
+
+        .attend-btn.selected-no { border-color: #555; background: #f9f9f9; }
+        .attend-btn.selected-no .btn-label { color: #444; }
+
+        textarea {
+            width: 100%;
+            border: 1.5px solid #e8e8e8;
+            border-radius: 2px;
+            padding: 14px 16px;
+            font-family: 'Lato', sans-serif;
+            font-size: 0.95rem;
+            color: #333;
+            resize: vertical;
+            min-height: 100px;
+            transition: border-color 0.15s;
+            line-height: 1.6;
+        }
+
+        textarea:focus { outline: none; border-color: #C0152A; }
+        textarea::placeholder { color: #ccc; }
+
+        .submit-btn {
+            width: 100%;
+            padding: 18px;
+            background: #C0152A;
+            color: white;
+            border: none;
+            border-radius: 2px;
+            font-family: 'Lato', sans-serif;
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: background 0.15s;
+        }
+
+        .submit-btn:hover:not(:disabled) { background: #a01020; }
+        .submit-btn:disabled { background: #ddd; color: #bbb; cursor: not-allowed; }
+
+        /* ── Feedback screens ── */
+        .feedback-screen { text-align: center; padding: 16px 0; }
+        .feedback-screen .big-icon { font-size: 3rem; margin-bottom: 20px; display: block; }
+        .feedback-screen h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            color: #C0152A;
+            margin-bottom: 14px;
+        }
+        .feedback-screen p {
+            color: #777;
+            font-size: 0.95rem;
+            line-height: 1.8;
+            font-weight: 300;
+        }
+        .feedback-screen p strong { color: #444; font-weight: 700; }
+
+        #state-invalid .feedback-screen h2 { color: #555; }
+
+        /* ── Footer ── */
+        .footer {
+            text-align: center;
+            margin-top: 36px;
+            opacity: 0.7;
+        }
+        .footer p {
+            font-size: 0.82rem;
+            letter-spacing: 0.04em;
+            line-height: 2;
+            font-weight: 300;
+        }
+        .footer strong { font-weight: 700; }
+        .footer .late {
+            color: #ffe066;
+            font-weight: 700;
+            font-size: 0.88rem;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+        }
+
+        /* ── Double happiness ── */
+        .double-happiness {
+            text-align: center;
+            font-size: 5rem;
+            color: #e8d5a3;
+            margin-top: 40px;
+            margin-bottom: 16px;
+            text-shadow: 0 3px 12px rgba(0,0,0,0.35);
+            line-height: 1;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Bouncing img_5 -->
+<img class="bouncer5" id="b5" src="images/img_5.png" alt="">
+
+<div class="page">
+
+    <!-- Top banner images (mobile only, scrolls with page) -->
+    <div class="top-banner">
+        <img src="images/img_1.png" alt="">
+        <img src="images/img_2.png" alt="">
+        <img src="images/img_3.png" alt="">
+        <img src="images/img_4.png" alt="">
+    </div>
+
+    <header class="header">
+        <p class="header-tagline">Гулять так гулять!</p>
+        <h1 class="header-names">Susie <span class="header-plus">+</span> Dima</h1>
+        <p class="header-date">18 · 07 · 2026</p>
+        <p class="header-subtitle">Celebration Party</p>
+        <p class="header-location">6:30 PM &nbsp;·&nbsp; Rasputin<br><span class="header-address">119 Wattletree Rd, Malvern VIC 3144</span></p>
+    </header>
+
+    <div class="divider">
+        <div class="divider-line"></div>
+        <div class="divider-diamond"></div>
+        <div class="divider-line"></div>
+    </div>
+
+    <div class="card">
+
+        <div id="state-loading" class="state active loading">Loading…</div>
+
+        <div id="state-invalid" class="state">
+            <div class="feedback-screen">
+                <span class="big-icon">✉️</span>
+                <h2>That link doesn't look right.</h2>
+                <p>Please use the personal link we sent you.<br>
+                   Having trouble? Get in touch: <strong>malkindmitry@gmail.com</strong></p>
+            </div>
+        </div>
+
+        <div id="state-already" class="state">
+            <div class="feedback-screen">
+                <span class="big-icon">✓</span>
+                <h2>You're all set!</h2>
+                <p id="already-msg">We've already received your RSVP.</p>
+            </div>
+        </div>
+
+        <div id="state-form" class="state">
+            <p class="card-greeting">Hi, <span id="guest-name"></span>!</p>
+            <p class="card-intro">We'd love to know if you can join us on our special day.<br>Please let us know below.</p>
+
+            <div class="field-group">
+                <div class="field-label">Will you be joining us?</div>
+                <div class="attend-options">
+                    <button class="attend-btn" id="btn-yes" onclick="select('yes')">
+                        <span class="btn-icon">🥂</span>
+                        <span class="btn-label">Yes!</span>
+                        <span class="btn-sub">Wouldn't miss it</span>
+                    </button>
+                    <button class="attend-btn" id="btn-no" onclick="select('no')">
+                        <span class="btn-icon">😢</span>
+                        <span class="btn-label">Sorry, no</span>
+                        <span class="btn-sub">Can't make it</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="field-group">
+                <div class="field-label">Dietary requirements / comments / other</div>
+                <textarea id="dietary" placeholder="Allergies, dietary needs, or anything else we should know. Leave blank if none."></textarea>
+            </div>
+
+            <button class="submit-btn" id="submit-btn" onclick="submitRSVP()" disabled>Send RSVP</button>
+        </div>
+
+        <div id="state-success" class="state">
+            <div class="feedback-screen">
+                <span class="big-icon" id="success-icon">🎉</span>
+                <h2 id="success-title">See you there!</h2>
+                <p id="success-msg">Your RSVP has been received. We can't wait to celebrate with you on 18 July!</p>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="double-happiness">囍</div>
+
+    <footer class="footer">
+        <p id="deadline-line"></p>
+        <p>Questions? <strong>malkindmitry@gmail.com</strong></p>
+    </footer>
+
+</div>
+<script>
+    // ── CONFIG ─────────────────────────────────────────────────────────────────
+    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxkeV89_mbgrspQDLRNJv96BnYDr5qx-WlJW9ByPt2VrECVHupAloi_O44vBkCJMdXd/exec';
+
+    function getDisplayName(fullStr) {
+        return fullStr.split(',').map(n => n.trim().split(' ')[0]).join(' & ');
+    }
+    // ───────────────────────────────────────────────────────────────────────────
+
+    // ── Deadline countdown ─────────────────────────────────────────────────────
+    const DEADLINE = new Date('2026-04-30T23:59:59');
+    const now = new Date();
+    const diffMs = DEADLINE - now;
+    const deadlineLine = document.getElementById('deadline-line');
+    if (diffMs <= 0) {
+        deadlineLine.innerHTML = '<span class="late">⚠ You\'re late — please submit your RSVP ASAP!</span>';
+    } else {
+        const days = Math.ceil(diffMs / (1000 * 60 * 60 * 24));
+        deadlineLine.innerHTML = `Please RSVP by <strong>30th April</strong> — <strong>${days} day${days !== 1 ? 's' : ''} to go</strong>`;
+    }
+    // ───────────────────────────────────────────────────────────────────────────
+
+    let guest = null;
+    let attending = null;
+
+    function showState(id) {
+        ['state-loading','state-invalid','state-already','state-form','state-success']
+            .forEach(s => document.getElementById(s).classList.remove('active'));
+        document.getElementById(id).classList.add('active');
+    }
+
+    function select(choice) {
+        attending = choice;
+        document.getElementById('btn-yes').className = 'attend-btn' + (choice === 'yes' ? ' selected-yes' : '');
+        document.getElementById('btn-no').className  = 'attend-btn' + (choice === 'no'  ? ' selected-no'  : '');
+        document.getElementById('submit-btn').disabled = false;
+    }
+
+    async function init() {
+        const code = new URLSearchParams(window.location.search).get('guest');
+        if (!code) { showState('state-invalid'); return; }
+
+        try {
+            const res  = await fetch(`${SCRIPT_URL}?code=${code}`);
+            const data = await res.json();
+
+            if (!data.valid) { showState('state-invalid'); return; }
+
+            guest = { code, full: data.name };
+            document.getElementById('guest-name').textContent = getDisplayName(data.name);
+
+            if (data.submitted) {
+                const msg = data.attending === 'Yes'
+                    ? "We've already received your RSVP.<br>Can't wait to celebrate with you!"
+                    : "We've already received your RSVP.<br>We'll miss you on the day!";
+                document.getElementById('already-msg').innerHTML = msg;
+                showState('state-already');
+                return;
+            }
+
+            showState('state-form');
+        } catch (_) { showState('state-invalid'); }
+    }
+
+    async function submitRSVP() {
+        if (!attending) return;
+        const btn = document.getElementById('submit-btn');
+        btn.disabled = true;
+        btn.textContent = 'Sending…';
+
+        try {
+            await fetch(SCRIPT_URL, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    code:     guest.code,
+                    name:     guest.full,
+                    attending: attending === 'yes' ? 'Yes' : 'No',
+                    dietary:  document.getElementById('dietary').value.trim(),
+                }),
+            });
+        } catch (_) { /* no-cors — expected */ }
+
+        if (attending === 'yes') {
+            document.getElementById('success-icon').textContent  = '🎉';
+            document.getElementById('success-title').textContent = 'See you there!';
+            document.getElementById('success-msg').textContent   = "Your RSVP has been received. We can't wait to celebrate with you on 18 July!";
+        } else {
+            document.getElementById('success-icon').textContent  = '💌';
+            document.getElementById('success-title').textContent = 'Thanks for letting us know.';
+            document.getElementById('success-msg').textContent   = "We'll miss you on the day. Thanks for taking the time to let us know!";
+        }
+
+        showState('state-success');
+    }
+
+    init();
+
+    // ── Bouncing img_5 (top quarter only) ─────────────────────────────────────
+    const b5el = document.getElementById('b5');
+    const isMobile = () => window.innerWidth <= 600;
+    const cardTop = () => document.querySelector('.card').getBoundingClientRect().top + window.scrollY - 16;
+    const b5 = {
+        el: b5el,
+        x: Math.random() * (window.innerWidth - 300),
+        y: Math.random() * (window.innerHeight * 0.5),
+        vx: (Math.random() < 0.5 ? 1 : -1) * (1.5 + Math.random()),
+        vy: (Math.random() < 0.5 ? 1 : -1) * (1.5 + Math.random()),
+    };
+
+    function animateBounce5() {
+        const W = window.innerWidth;
+        const H = window.innerHeight;
+        const minY = isMobile() ? H * 0.05 : 0;
+        const maxY = isMobile() ? cardTop() : H;
+        const w = b5.el.offsetWidth || 300;
+        const h = b5.el.offsetHeight || 300;
+        b5.x += b5.vx;
+        b5.y += b5.vy;
+        if (b5.x <= 0)             { b5.x = 0;          b5.vx = Math.abs(b5.vx); }
+        if (b5.y <= minY)          { b5.y = minY;        b5.vy = Math.abs(b5.vy); }
+        if (b5.x + w >= W)         { b5.x = W - w;       b5.vx = -Math.abs(b5.vx); }
+        if (b5.y + h >= maxY)      { b5.y = maxY - h;    b5.vy = -Math.abs(b5.vy); }
+        b5.el.style.transform = `translate(${b5.x}px, ${b5.y}px)`;
+        requestAnimationFrame(animateBounce5);
+    }
+
+    animateBounce5();
+    // ───────────────────────────────────────────────────────────────────────────
+</script>
+</body>
+</html>

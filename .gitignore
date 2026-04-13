@@ -1,0 +1,10 @@
+# Only deploy the site/ folder — ignore everything else
+*.gs
+*.py
+*.xlsx
+*.png
+.claude/
+
+# Don't ignore images inside site/
+!site/
+!site/**
