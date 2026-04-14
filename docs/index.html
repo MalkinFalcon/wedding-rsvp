@@ -274,11 +274,16 @@
             transition: opacity 0.1s ease;
         }
         .celebration-gif.visible { opacity: 1; }
-        .celebration-left { left: 0; border-radius: 0 0 0 2px; z-index: 1; max-height: 150px; }
-        .celebration-right { right: 0; border-radius: 0 0 2px 0; z-index: 2; max-height: 130px; }
-        @media (min-width: 601px) {
-            .celebration-left { max-height: 210px; }
-            .celebration-right { max-height: 182px; }
+        .celebration-left { left: 0; border-radius: 0 0 0 2px; z-index: 1; max-height: 210px; }
+        .celebration-right { right: 0; border-radius: 0 0 2px 0; z-index: 2; max-height: 182px; }
+        @media (max-width: 600px) {
+            .celebration-gif {
+                position: fixed;
+                z-index: 9998;
+                border-radius: 0;
+            }
+            .celebration-left { left: 0; max-height: 165px; }
+            .celebration-right { right: 0; max-height: 143px; }
         }
 
         .submit-btn {
@@ -418,7 +423,7 @@
 
         <div id="state-form" class="state">
             <p class="card-greeting">Hi, <span id="guest-name"></span>!</p>
-            <p class="card-intro">We'd love for you to come party to celebrate our marriage!</p>
+            <p class="card-intro">We'd love for you to come celebrate our marriage!</p>
 
             <div class="field-group">
                 <div class="field-label">Will you be joining us?</div>
@@ -457,7 +462,7 @@
     </div>
 
     <div class="double-happiness">囍<img class="sad-gif" id="sad-gif" src="images/img_9.gif" alt=""></div>
-    <div style="position:fixed;bottom:4px;right:6px;font-size:10px;opacity:0.3;color:#fff;">v24</div>
+    <div style="position:fixed;bottom:4px;right:6px;font-size:10px;opacity:0.3;color:#fff;">v25</div>
 
     <footer class="footer">
         <p id="deadline-line"></p>
