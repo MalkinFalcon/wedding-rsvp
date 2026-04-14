@@ -58,6 +58,8 @@
         .header {
             text-align: center;
             padding-bottom: 44px;
+            position: relative;
+            overflow: hidden;
         }
 
         .header-tagline {
@@ -262,6 +264,25 @@
             100% { transform: translateY(100vh) rotate(720deg) scale(0.3); opacity: 0; }
         }
 
+        /* ── Disco ball drop ── */
+        .disco-ball {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%) translateY(-200px);
+            height: 70px;
+            width: auto;
+            z-index: 10;
+            pointer-events: none;
+            animation: disco-drop 2.1s ease-in-out forwards;
+            animation-delay: 0.5s;
+        }
+        @keyframes disco-drop {
+            0%   { transform: translateX(-50%) translateY(-200px); }
+            14%  { transform: translateX(-50%) translateY(0); }
+            86%  { transform: translateX(-50%) translateY(0); }
+            100% { transform: translateX(-50%) translateY(-200px); }
+        }
+
         body { transition: background-color 0.8s ease; }
 
         /* ── Celebration GIF ── */
@@ -389,6 +410,7 @@
     <header class="header">
         <p class="header-tagline">Гулять так гулять!</p>
         <h1 class="header-names">Susie <span class="header-plus">+</span> Dima</h1>
+        <img class="disco-ball" src="images/img_10.gif" alt="">
         <p class="header-date">18 · 07 · 2026</p>
         <p class="header-subtitle">Wedding Party</p>
         <p class="header-location">6:30 PM &nbsp;·&nbsp; Rasputin<br><span class="header-address">119 Wattletree Rd, Malvern VIC 3144</span></p>
@@ -462,7 +484,7 @@
     </div>
 
     <div class="double-happiness">囍<img class="sad-gif" id="sad-gif" src="images/img_9.gif" alt=""></div>
-    <div style="position:fixed;bottom:4px;right:6px;font-size:10px;opacity:0.3;color:#fff;">v27</div>
+    <div style="position:fixed;bottom:4px;right:6px;font-size:10px;opacity:0.3;color:#fff;">v28</div>
 
     <footer class="footer">
         <p id="deadline-line"></p>
