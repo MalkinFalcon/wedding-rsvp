@@ -9,11 +9,64 @@
         * { box-sizing: border-box; margin: 0; padding: 0; }
 
         body {
-            background-color: #C0152A;
+            background-color: #000;
             min-height: 100vh;
             font-family: 'Lato', sans-serif;
             color: #fff;
         }
+        body.revealed { background-color: #C0152A; }
+
+        /* ── Intro splash ── */
+        .intro-splash {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            z-index: 99999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #000;
+            cursor: pointer;
+        }
+        .intro-splash.dismissed {
+            pointer-events: none;
+            background: transparent;
+            transition: background 0.5s ease;
+        }
+        .intro-disco-wrap {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .intro-disco {
+            height: 210px;
+            width: auto;
+            transition: transform 0.5s ease-in;
+        }
+        .intro-disco.fly-up {
+            transform: translateY(-120vh);
+        }
+        .intro-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-family: 'Lato', sans-serif;
+            font-size: 1rem;
+            font-weight: 700;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            animation: glow-pulse 2s ease-in-out infinite;
+            white-space: nowrap;
+        }
+        @keyframes glow-pulse {
+            0%, 100% { color: #ccc; text-shadow: 0 0 8px rgba(200,200,200,0.3); }
+            50%  { color: #c084fc; text-shadow: 0 0 20px rgba(192,132,252,0.6), 0 0 40px rgba(192,132,252,0.3); }
+        }
+        .intro-text.hide { display: none; }
+
+        .page-content { display: none; }
+        .page-content.visible { display: block; }
 
         /* ── Top banner images ── */
         .top-banner {
@@ -264,25 +317,6 @@
             100% { transform: translateY(100vh) rotate(720deg) scale(0.3); opacity: 0; }
         }
 
-        /* ── Disco ball drop ── */
-        .disco-ball {
-            position: absolute;
-            left: 50%;
-            transform: translateX(-50%) translateY(-300px);
-            height: 210px;
-            width: auto;
-            z-index: 10;
-            pointer-events: none;
-            animation: disco-drop 2.1s ease-in-out forwards;
-            animation-delay: 0.5s;
-        }
-        @keyframes disco-drop {
-            0%   { transform: translateX(-50%) translateY(-300px); }
-            14%  { transform: translateX(-50%) translateY(0); }
-            86%  { transform: translateX(-50%) translateY(0); }
-            100% { transform: translateX(-50%) translateY(-300px); }
-        }
-
         body { transition: background-color 0.8s ease; }
 
         /* ── Celebration GIF ── */
@@ -394,6 +428,16 @@
 </head>
 <body>
 
+<!-- Intro splash -->
+<div class="intro-splash" id="intro-splash">
+    <div class="intro-disco-wrap">
+        <img class="intro-disco" id="intro-disco" src="images/img_10.gif" alt="">
+        <span class="intro-text" id="intro-text">CLICK HERE</span>
+    </div>
+</div>
+
+<div class="page-content" id="page-content">
+
 <!-- Bouncing img_5 -->
 <img class="bouncer5" id="b5" src="images/img_5.png" alt="">
 
@@ -410,7 +454,6 @@
     <header class="header">
         <p class="header-tagline">Гулять так гулять!</p>
         <h1 class="header-names">Susie <span class="header-plus">+</span> Dima</h1>
-        <img class="disco-ball" src="images/img_10.gif" alt="">
         <p class="header-date">18 · 07 · 2026</p>
         <p class="header-subtitle">Wedding Party</p>
         <p class="header-location">6:30 PM &nbsp;·&nbsp; Rasputin<br><span class="header-address">119 Wattletree Rd, Malvern VIC 3144</span></p>
@@ -484,7 +527,7 @@
     </div>
 
     <div class="double-happiness">囍<img class="sad-gif" id="sad-gif" src="images/img_9.gif" alt=""></div>
-    <div style="position:fixed;bottom:4px;right:6px;font-size:10px;opacity:0.3;color:#fff;">v30</div>
+    <div style="position:fixed;bottom:4px;right:6px;font-size:10px;opacity:0.3;color:#fff;">v31</div>
 
     <footer class="footer">
         <p id="deadline-line"></p>
@@ -492,6 +535,8 @@
     </footer>
 
 </div>
+
+</div><!-- end page-content -->
 <script>
     // ── CONFIG ─────────────────────────────────────────────────────────────────
     const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxkeV89_mbgrspQDLRNJv96BnYDr5qx-WlJW9ByPt2VrECVHupAloi_O44vBkCJMdXd/exec';
@@ -532,16 +577,19 @@
     bgMusic.loop = true;
     bgMusic.volume = 0.5;
 
-    let bgStarted = false;
-    function tryStartBg() {
-        if (bgStarted) return;
-        bgMusic.play().then(() => { bgStarted = true; }).catch(() => {});
-    }
-    // Try autoplay immediately
-    tryStartBg();
-    // Fallback: start on first interaction if browser blocked autoplay
-    document.addEventListener('click', function(e) {
-        if (!e.target.closest('.attend-btn')) tryStartBg();
+    // ── Intro splash ──────────────────────────────────────────────────────────
+    document.getElementById('intro-splash').addEventListener('click', function() {
+        bgMusic.play().catch(() => {});
+        document.getElementById('intro-text').classList.add('hide');
+        document.getElementById('intro-disco').classList.add('fly-up');
+        setTimeout(() => {
+            document.getElementById('intro-splash').classList.add('dismissed');
+            document.getElementById('page-content').classList.add('visible');
+            document.body.classList.add('revealed');
+            setTimeout(() => {
+                document.getElementById('intro-splash').remove();
+            }, 500);
+        }, 600);
     });
 
     let lastChoice = null;
