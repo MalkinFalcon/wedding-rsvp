@@ -56,13 +56,14 @@
             font-weight: 900;
             letter-spacing: 0.2em;
             text-transform: uppercase;
+            color: #fff;
             animation: glow-pulse 2s ease-in-out infinite;
             text-align: center;
             line-height: 1.4;
         }
         @keyframes glow-pulse {
-            0%, 100% { color: #ccc; text-shadow: 0 0 8px rgba(200,200,200,0.3); }
-            50%  { color: #c084fc; text-shadow: 0 0 20px rgba(192,132,252,0.6), 0 0 40px rgba(192,132,252,0.3); }
+            0%, 100% { text-shadow: 0 0 4px rgba(0,0,0,0.2); }
+            50%  { text-shadow: 0 0 16px rgba(0,0,0,0.6), 0 0 30px rgba(0,0,0,0.3); }
         }
         .intro-text.hide { display: none; }
 
@@ -528,7 +529,7 @@
     </div>
 
     <div class="double-happiness">囍<img class="sad-gif" id="sad-gif" src="images/img_9.gif" alt=""></div>
-    <div style="position:fixed;bottom:4px;right:6px;font-size:10px;opacity:0.3;color:#fff;">v32</div>
+    <div style="position:fixed;bottom:4px;right:6px;font-size:10px;opacity:0.3;color:#fff;">v33</div>
 
     <footer class="footer">
         <p id="deadline-line"></p>
