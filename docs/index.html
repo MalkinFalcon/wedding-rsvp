@@ -462,7 +462,7 @@
     </div>
 
     <div class="double-happiness">囍<img class="sad-gif" id="sad-gif" src="images/img_9.gif" alt=""></div>
-    <div style="position:fixed;bottom:4px;right:6px;font-size:10px;opacity:0.3;color:#fff;">v25</div>
+    <div style="position:fixed;bottom:4px;right:6px;font-size:10px;opacity:0.3;color:#fff;">v26</div>
 
     <footer class="footer">
         <p id="deadline-line"></p>
@@ -506,38 +506,31 @@
     music.loop = true;
     music.volume = 0.7;
 
-    let gifPlaying = false;
-    let sadGifPlaying = false;
     let lastChoice = null;
 
     function showCelebrationGif() {
-        if (gifPlaying) return;
-        gifPlaying = true;
         const left = document.getElementById('celebration-gif-left');
         const right = document.getElementById('celebration-gif-right');
-        // Reset the gif so it plays from the start
         left.src = '';
         left.src = 'images/img_6.gif';
         left.classList.add('visible');
         right.classList.add('visible');
-        setTimeout(() => {
-            left.classList.remove('visible');
-            right.classList.remove('visible');
-            setTimeout(() => { gifPlaying = false; }, 100);
-        }, 2000);
+    }
+
+    function hideCelebrationGif() {
+        document.getElementById('celebration-gif-left').classList.remove('visible');
+        document.getElementById('celebration-gif-right').classList.remove('visible');
     }
 
     function showSadGif() {
-        if (sadGifPlaying) return;
-        sadGifPlaying = true;
         const gif = document.getElementById('sad-gif');
         gif.src = '';
         gif.src = 'images/img_9.gif';
         gif.classList.add('visible');
-        setTimeout(() => {
-            gif.classList.remove('visible');
-            setTimeout(() => { sadGifPlaying = false; }, 100);
-        }, 2000);
+    }
+
+    function hideSadGif() {
+        document.getElementById('sad-gif').classList.remove('visible');
     }
 
     function launchConfetti() {
@@ -565,7 +558,8 @@
         if (choice === 'yes') {
             document.body.style.backgroundColor = '#C0152A';
             launchConfetti();
-            if (lastChoice !== 'yes') showCelebrationGif();
+            showCelebrationGif();
+            hideSadGif();
             music.play().catch(() => {});
             document.querySelector('.field-label:last-of-type').textContent = 'DIETARY REQUIREMENTS / COMMENTS / OTHER';
             document.getElementById('dietary').placeholder = 'Allergies, dietary needs, or anything else we should know. Leave blank if none.';
@@ -573,7 +567,8 @@
         if (choice === 'no') {
             document.body.style.backgroundColor = '#3a3a3a';
             music.pause();
-            if (lastChoice !== 'no') showSadGif();
+            showSadGif();
+            hideCelebrationGif();
             document.querySelector('.field-label:last-of-type').textContent = 'LEAVE US A MESSAGE';
             document.getElementById('dietary').placeholder = "We'll miss you! Feel free to leave us a note.";
         }
