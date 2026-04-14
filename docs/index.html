@@ -484,7 +484,7 @@
     </div>
 
     <div class="double-happiness">囍<img class="sad-gif" id="sad-gif" src="images/img_9.gif" alt=""></div>
-    <div style="position:fixed;bottom:4px;right:6px;font-size:10px;opacity:0.3;color:#fff;">v28</div>
+    <div style="position:fixed;bottom:4px;right:6px;font-size:10px;opacity:0.3;color:#fff;">v29</div>
 
     <footer class="footer">
         <p id="deadline-line"></p>
@@ -533,12 +533,16 @@
     bgMusic.volume = 0.5;
 
     let bgStarted = false;
-    document.addEventListener('click', function startBg(e) {
-        if (!bgStarted && !e.target.closest('.attend-btn')) {
-            bgMusic.play().catch(() => {});
-            bgStarted = true;
-        }
-    }, { once: false });
+    function tryStartBg() {
+        if (bgStarted) return;
+        bgMusic.play().then(() => { bgStarted = true; }).catch(() => {});
+    }
+    // Try autoplay immediately
+    tryStartBg();
+    // Fallback: start on first interaction if browser blocked autoplay
+    document.addEventListener('click', function(e) {
+        if (!e.target.closest('.attend-btn')) tryStartBg();
+    });
 
     let lastChoice = null;
 
