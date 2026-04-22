@@ -529,13 +529,13 @@
         <img class="celebration-gif celebration-right" id="celebration-gif-right" src="images/img_7.png" alt="">
     </div>
 
-    <div class="double-happiness">囍<img class="sad-gif" id="sad-gif" src="images/img_9.gif" alt=""></div>
-    <div style="position:fixed;bottom:4px;right:6px;font-size:10px;opacity:0.3;color:#fff;">v34</div>
-
     <footer class="footer">
         <p id="deadline-line"></p>
         <p>Questions? <strong>malkindmitry@gmail.com</strong></p>
     </footer>
+
+    <div class="double-happiness">囍<img class="sad-gif" id="sad-gif" src="images/img_9.gif" alt=""></div>
+    <div style="position:fixed;bottom:4px;right:6px;font-size:10px;opacity:0.3;color:#fff;">v35</div>
 
 </div>
 
@@ -550,7 +550,7 @@
     // ───────────────────────────────────────────────────────────────────────────
 
     // ── Deadline countdown ─────────────────────────────────────────────────────
-    const DEADLINE = new Date('2026-04-30');
+    const DEADLINE = new Date('2026-05-30');
     const now = new Date();
     const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
     const deadlineDay = new Date(DEADLINE.getFullYear(), DEADLINE.getMonth(), DEADLINE.getDate());
@@ -559,7 +559,7 @@
     if (days <= 0) {
         deadlineLine.innerHTML = '<span class="late">⚠ You\'re late — please submit your RSVP ASAP!</span>';
     } else {
-        deadlineLine.innerHTML = `Please RSVP by <strong>30th April</strong> — <strong>${days} day${days !== 1 ? 's' : ''} to go</strong>`;
+        deadlineLine.innerHTML = `Please RSVP by <strong>30th May</strong> — <strong>${days} day${days !== 1 ? 's' : ''} to go</strong>`;
     }
     // ───────────────────────────────────────────────────────────────────────────
 
