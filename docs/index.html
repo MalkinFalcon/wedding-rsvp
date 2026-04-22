@@ -577,7 +577,7 @@
     </footer>
 
     <div class="double-happiness">囍<img class="sad-gif" id="sad-gif" src="images/img_9.gif" alt=""></div>
-    <div style="position:fixed;bottom:4px;right:6px;font-size:10px;opacity:0.3;color:#fff;">v43</div>
+    <div style="position:fixed;bottom:4px;right:6px;font-size:10px;opacity:0.3;color:#fff;">v44</div>
 
 </div>
 
@@ -622,6 +622,10 @@
     bgMusic.loop = true;
     bgMusic.volume = 0.5;
 
+    const sadMusic = new Audio('images/audio_3.mp3');
+    sadMusic.loop = true;
+    sadMusic.volume = 0.7;
+
     let fadeTimer = null;
     function startFadeOut(audio, baseVolume) {
         clearInterval(fadeTimer);
@@ -664,6 +668,7 @@
         isMuted = !isMuted;
         music.muted = isMuted;
         bgMusic.muted = isMuted;
+        sadMusic.muted = isMuted;
         document.getElementById('mute-btn').textContent = isMuted ? '🔇' : '🔊';
     }
 
@@ -723,6 +728,8 @@
             hideSadGif();
             bgMusic.pause();
             bgMusic.volume = 0.5;
+            sadMusic.pause();
+            sadMusic.volume = 0.7;
             clearInterval(fadeTimer);
             music.volume = 0.7;
             music.play().catch(() => {});
@@ -737,6 +744,9 @@
             music.volume = 0.7;
             bgMusic.pause();
             bgMusic.volume = 0.5;
+            sadMusic.volume = 0.7;
+            sadMusic.play().catch(() => {});
+            startFadeOut(sadMusic, 0.7);
             showSadGif();
             hideCelebrationGif();
             document.querySelector('.field-label:last-of-type').textContent = 'LEAVE US A MESSAGE';
