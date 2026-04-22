@@ -559,7 +559,7 @@
     </footer>
 
     <div class="double-happiness">囍<img class="sad-gif" id="sad-gif" src="images/img_9.gif" alt=""></div>
-    <div style="position:fixed;bottom:4px;right:6px;font-size:10px;opacity:0.3;color:#fff;">v36</div>
+    <div style="position:fixed;bottom:4px;right:6px;font-size:10px;opacity:0.3;color:#fff;">v37</div>
 
 </div>
 
@@ -604,9 +604,30 @@
     bgMusic.loop = true;
     bgMusic.volume = 0.5;
 
+    let fadeTimer = null;
+    function startFadeOut(audio, baseVolume) {
+        clearInterval(fadeTimer);
+        fadeTimer = setTimeout(() => {
+            const fadeDuration = 2000;
+            const steps = 40;
+            const stepTime = fadeDuration / steps;
+            let step = 0;
+            const fadeInterval = setInterval(() => {
+                step++;
+                audio.volume = Math.max(0, baseVolume * (1 - step / steps));
+                if (step >= steps) {
+                    clearInterval(fadeInterval);
+                    audio.pause();
+                    audio.volume = baseVolume;
+                }
+            }, stepTime);
+        }, 18000);
+    }
+
     // ── Intro splash ──────────────────────────────────────────────────────────
     document.getElementById('intro-splash').addEventListener('click', function() {
         bgMusic.play().catch(() => {});
+        startFadeOut(bgMusic, 0.5);
         document.getElementById('mute-btn').classList.add('visible');
         document.getElementById('intro-text').classList.add('hide');
         document.getElementById('intro-disco').classList.add('fly-up');
@@ -683,14 +704,21 @@
             showCelebrationGif();
             hideSadGif();
             bgMusic.pause();
+            bgMusic.volume = 0.5;
+            clearInterval(fadeTimer);
+            music.volume = 0.7;
             music.play().catch(() => {});
+            startFadeOut(music, 0.7);
             document.querySelector('.field-label:last-of-type').textContent = 'DIETARY REQUIREMENTS / COMMENTS / OTHER';
             document.getElementById('dietary').placeholder = 'Allergies, dietary needs, or anything else we should know. Leave blank if none.';
         }
         if (choice === 'no') {
             document.body.style.backgroundColor = '#3a3a3a';
+            clearInterval(fadeTimer);
             music.pause();
+            music.volume = 0.7;
             bgMusic.pause();
+            bgMusic.volume = 0.5;
             showSadGif();
             hideCelebrationGif();
             document.querySelector('.field-label:last-of-type').textContent = 'LEAVE US A MESSAGE';
