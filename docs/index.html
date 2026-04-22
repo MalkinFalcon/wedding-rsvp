@@ -320,6 +320,28 @@
             100% { transform: translateY(100vh) rotate(720deg) scale(0.3); opacity: 0; }
         }
 
+        /* ── Mute button ── */
+        .mute-btn {
+            position: fixed;
+            top: 12px;
+            right: 12px;
+            z-index: 99998;
+            background: rgba(0,0,0,0.25);
+            border: none;
+            border-radius: 50%;
+            width: 44px;
+            height: 44px;
+            font-size: 1.4rem;
+            cursor: pointer;
+            color: #fff;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s;
+        }
+        .mute-btn:hover { background: rgba(0,0,0,0.4); }
+        .mute-btn.visible { display: flex; }
+
         body { transition: background-color 0.8s ease; }
 
         /* ── Celebration GIF ── */
@@ -431,6 +453,8 @@
 </head>
 <body>
 
+<button class="mute-btn" id="mute-btn" onclick="toggleMute()">🔊</button>
+
 <!-- Intro splash -->
 <div class="intro-splash" id="intro-splash">
     <div class="intro-disco-wrap">
@@ -535,7 +559,7 @@
     </footer>
 
     <div class="double-happiness">囍<img class="sad-gif" id="sad-gif" src="images/img_9.gif" alt=""></div>
-    <div style="position:fixed;bottom:4px;right:6px;font-size:10px;opacity:0.3;color:#fff;">v35</div>
+    <div style="position:fixed;bottom:4px;right:6px;font-size:10px;opacity:0.3;color:#fff;">v36</div>
 
 </div>
 
@@ -583,6 +607,7 @@
     // ── Intro splash ──────────────────────────────────────────────────────────
     document.getElementById('intro-splash').addEventListener('click', function() {
         bgMusic.play().catch(() => {});
+        document.getElementById('mute-btn').classList.add('visible');
         document.getElementById('intro-text').classList.add('hide');
         document.getElementById('intro-disco').classList.add('fly-up');
         setTimeout(() => {
@@ -594,6 +619,14 @@
             }, 500);
         }, 600);
     });
+
+    let isMuted = false;
+    function toggleMute() {
+        isMuted = !isMuted;
+        music.muted = isMuted;
+        bgMusic.muted = isMuted;
+        document.getElementById('mute-btn').textContent = isMuted ? '🔇' : '🔊';
+    }
 
     let lastChoice = null;
 
