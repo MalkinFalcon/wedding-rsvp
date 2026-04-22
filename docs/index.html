@@ -169,6 +169,17 @@
             letter-spacing: 0.03em;
         }
 
+        /* ── Scroll hint ── */
+        .scroll-hint {
+            text-align: center;
+            font-size: 0.65rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            opacity: 0.4;
+            margin-bottom: 10px;
+            font-weight: 300;
+        }
+
         /* ── Divider ── */
         .divider {
             display: flex;
@@ -483,6 +494,7 @@
         <p class="header-location">6:30 PM &nbsp;·&nbsp; Rasputin<br><span class="header-address">119 Wattletree Rd, Malvern VIC 3144</span></p>
     </header>
 
+    <p class="scroll-hint">scroll down ↓</p>
     <div class="divider">
         <div class="divider-line"></div>
         <div class="divider-diamond"></div>
@@ -556,7 +568,7 @@
     </footer>
 
     <div class="double-happiness">囍<img class="sad-gif" id="sad-gif" src="images/img_9.gif" alt=""></div>
-    <div style="position:fixed;bottom:4px;right:6px;font-size:10px;opacity:0.3;color:#fff;">v38</div>
+    <div style="position:fixed;bottom:4px;right:6px;font-size:10px;opacity:0.3;color:#fff;">v39</div>
 
 </div>
 
@@ -618,7 +630,7 @@
                     audio.volume = baseVolume;
                 }
             }, stepTime);
-        }, 18000);
+        }, 28000);
     }
 
     // ── Intro splash ──────────────────────────────────────────────────────────
