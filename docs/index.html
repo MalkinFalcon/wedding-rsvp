@@ -171,6 +171,7 @@
 
         /* ── Scroll hint ── */
         .scroll-hint {
+            display: none;
             text-align: center;
             font-size: 0.65rem;
             letter-spacing: 0.15em;
@@ -178,6 +179,14 @@
             opacity: 0.4;
             margin-bottom: 10px;
             font-weight: 300;
+            animation: bob 1.5s ease-in-out infinite;
+        }
+        @keyframes bob {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(5px); }
+        }
+        @media (max-width: 600px) {
+            .scroll-hint { display: block; }
         }
 
         /* ── Divider ── */
@@ -568,7 +577,7 @@
     </footer>
 
     <div class="double-happiness">囍<img class="sad-gif" id="sad-gif" src="images/img_9.gif" alt=""></div>
-    <div style="position:fixed;bottom:4px;right:6px;font-size:10px;opacity:0.3;color:#fff;">v40</div>
+    <div style="position:fixed;bottom:4px;right:6px;font-size:10px;opacity:0.3;color:#fff;">v41</div>
 
 </div>
 
